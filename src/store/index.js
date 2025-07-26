@@ -11,7 +11,7 @@ export const useGameStore = create((set) => ({
   eyes: { team_a: 0, team_b: 0 },
   gameOver: false,
   cardsOnTable: [],
-  trump: String,
+  trump: "Clubs",
 
   lastError: null,
   setLastError: (msg) => set({ lastError: msg }),
