@@ -24,9 +24,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: unset CI
     - run: npm ci
-    - run: npm run build --if-present
+    - run: CI='' npm run build --if-present
     - run: echo $(ls -la)
     - name: delete last
       uses: appleboy/ssh-action@v1.0.3
