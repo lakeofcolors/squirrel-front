@@ -27,16 +27,23 @@ export default function SquirrelLoginForm() {
   const handleLogin = async (e) => {
     e.preventDefault();
     const tg = window.Telegram?.WebApp;
+
     if (tg) {
-      tg.ready();        // сообщаем Telegram, что WebApp загрузился
-      tg.expand();       // разворачиваем на всю высоту
+      tg.ready();
+      tg.expand();
+      tg.showAlert(`initData: ${tg.initData}`);
+    } else {
+      console.log("Not inside Telegram WebApp");
+      alert("Not inside Telegram WebApp. For dev use browser.");
     }
-    alert(window.Telegram.WebApp.initData);
 
     try {
-      const res = await axios.post(getUrl("/auth/login"), { username, password });
+      const res = await axios.post(getUrl("/auth/login"), {
+        username,
+        password,
+        initData: tg?.initData || null,   // <-- передаём на бэк
+      });
 
-      console.log(res.data);
       if (res.data.access_token) {
         localStorage.setItem("access_token", res.data.access_token);
         setToken(res.data.access_token);
