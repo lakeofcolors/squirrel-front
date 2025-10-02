@@ -26,7 +26,7 @@ export default function SquirrelLoginForm() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    window.Telegram.WebApp.showAlert("Ваш initData: " + window.Telegram.WebApp.initData);
+    alert(window.Telegram.WebApp.initData);
 
     try {
       const res = await axios.post(getUrl("/auth/login"), { username, password });
