@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { useGameStore } from "./store/index"; // путь подкорректируй, если не совпадает
+import { useGameStore } from "./store/index";
 import { connectWS } from "./ws/client"
+import { getUrl } from "./config/settings";
+import login_wallpaper from "./assets/login_wallpaper.jpg";
 
 export default function SquirrelLoginForm() {
   const [username, setUsername] = useState("");
@@ -25,7 +27,7 @@ export default function SquirrelLoginForm() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:9221/api/login", { username, password });
+      const res = await axios.post(getUrl("/auth/login"), { username, password });
 
       console.log(res.data);
       if (res.data.access_token) {
@@ -41,7 +43,7 @@ export default function SquirrelLoginForm() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-green-300 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen login-bg p-4">
       {/* --- Верхняя карта "Белка" --- */}
       <div className="mb-4 text-center w-full">
         <div className="relative inline-block px-4 py-2 border-4 border-yellow-600 rounded-lg bg-yellow-100 shadow-md w-full max-w-xs">
@@ -54,7 +56,7 @@ export default function SquirrelLoginForm() {
       </div>
 
       {/* --- Карта с белкой и форма --- */}
-      <div className="relative w-full max-w-sm p-4 bg-white rounded-2xl shadow-lg">
+      <div className="relative w-full max-w-sm p-6 rounded-2xl shadow-lg bg-black/60 border border-purple-500 backdrop-blur-md">
         <div className="relative flex justify-center mb-4">
           <div className="relative w-48 h-64 rounded-xl shadow-md border-4 border-yellow-600 bg-yellow-100 flex items-center justify-center p-2">
             <div className="absolute top-1 left-1 text-xs font-bold text-black flex flex-col items-center">

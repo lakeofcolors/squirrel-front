@@ -3,6 +3,9 @@ import { toast } from 'react-toastify';
 
 let socket = null;
 let pingInterval;
+const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+const host = window.location.host;
+const socketUrl = `${protocol}://api.${host}/v1/ws`;
 
 export function connectWS(navigate) {
   if (getSocket()) {
@@ -10,7 +13,7 @@ export function connectWS(navigate) {
   }
   let token = getToken();
   console.log(token);
-  socket = new WebSocket("ws://localhost:9221/api/ws");
+  socket = new WebSocket(socketUrl);
 
   socket.onopen = () => {
     const store = useGameStore.getState();

@@ -15,3 +15,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.login-bg {
+  background-image: url("./assets/login_wallpaper.jpg");
+  background-size: cover;      /* растягивает с сохранением пропорций */
+  background-position: center; /* центрирует */
+  background-repeat: no-repeat;/* убирает повтор */
+  width: 100%;
+  min-height: 100vh;           /* на всю высоту окна */
+}
