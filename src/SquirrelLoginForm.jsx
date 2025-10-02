@@ -26,6 +26,11 @@ export default function SquirrelLoginForm() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();        // сообщаем Telegram, что WebApp загрузился
+      tg.expand();       // разворачиваем на всю высоту
+    }
     alert(window.Telegram.WebApp.initData);
 
     try {
