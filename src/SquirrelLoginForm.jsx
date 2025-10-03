@@ -8,8 +8,6 @@ import { getUrl } from "./config/settings";
 import login_wallpaper from "./assets/login_wallpaper.jpg";
 
 export default function SquirrelLoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -31,16 +29,17 @@ export default function SquirrelLoginForm() {
     if (tg) {
       tg.ready();
       tg.expand();
-      tg.showAlert(`initData: ${tg.initData}`);
     } else {
       console.log("Not inside Telegram WebApp");
       alert("Not inside Telegram WebApp. For dev use browser.");
     }
 
+    console.log("Inside Telegram WebApp");
+
     try {
       const res = await axios.post(getUrl("/auth/login"), {
-        username,
-        password,
+        // username,
+        // password,
         initData: tg?.initData || null,   // <-- передаём на бэк
       });
 
@@ -119,36 +118,36 @@ export default function SquirrelLoginForm() {
         </div>
 
         {/* --- Форма логина --- */}
-        <form onSubmit={handleLogin} className="flex flex-col space-y-3">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-base"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onFocus={() => setPasswordFocused(true)}
-            onBlur={() => setPasswordFocused(false)}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-base"
-          />
-          <button
-            type="submit"
-            className="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition text-base"
-          >
-            Login
-          </button>
-          <Link
-            to="/game"
-            className="w-full py-2 bg-orange-500 text-white font-bold rounded-lg text-center block hover:bg-orange-600"
-          >
-            Preview Game
-          </Link>
-        </form>
+        {/* <form onSubmit={handleLogin} className="flex flex-col space-y-3"> */}
+        {/*   <input */}
+        {/*     type="text" */}
+        {/*     placeholder="Username" */}
+        {/*     value={username} */}
+        {/*     onChange={(e) => setUsername(e.target.value)} */}
+        {/*     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-base" */}
+        {/*   /> */}
+        {/*   <input */}
+        {/*     type="password" */}
+        {/*     placeholder="Password" */}
+        {/*     value={password} */}
+        {/*     onFocus={() => setPasswordFocused(true)} */}
+        {/*     onBlur={() => setPasswordFocused(false)} */}
+        {/*     onChange={(e) => setPassword(e.target.value)} */}
+        {/*     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-base" */}
+        {/*   /> */}
+        {/*   <button */}
+        {/*     type="submit" */}
+        {/*     className="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition text-base" */}
+        {/*   > */}
+        {/*     Login */}
+        {/*   </button> */}
+        {/*   <Link */}
+        {/*     to="/game" */}
+        {/*     className="w-full py-2 bg-orange-500 text-white font-bold rounded-lg text-center block hover:bg-orange-600" */}
+        {/*   > */}
+        {/*     Preview Game */}
+        {/*   </Link> */}
+        {/* </form> */}
       </div>
     </div>
   );
