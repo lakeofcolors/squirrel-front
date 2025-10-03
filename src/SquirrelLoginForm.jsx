@@ -35,7 +35,7 @@ export default function SquirrelLoginForm() {
 
     const doAuth = async () => {
       try {
-        alert(tg.initData);
+        // alert(tg.initData);
         const res = await axios.post(getUrl("/auth/login"), {
           init_data: tg.initData || null,
         });
