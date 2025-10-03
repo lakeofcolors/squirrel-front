@@ -13,6 +13,10 @@ export default function SquirrelLoginForm() {
   const setToken = useGameStore((s) => s.setToken);
   const navigate = useNavigate();
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   useEffect(() => {
     const handleMouseMove = (event) => {
       setMousePosition({ x: event.clientX, y: event.clientY });
@@ -35,7 +39,6 @@ export default function SquirrelLoginForm() {
 
     const doAuth = async () => {
       try {
-        // alert(tg.initData);
         const res = await axios.post(getUrl("/auth/login"), {
           init_data: tg.initData || null,
         });
@@ -44,6 +47,7 @@ export default function SquirrelLoginForm() {
           localStorage.setItem("access_token", res.data.access_token);
           setToken(res.data.access_token);
           connectWS(navigate);
+          await sleep(3000);
           navigate("/find");
         }
       } catch (err) {
