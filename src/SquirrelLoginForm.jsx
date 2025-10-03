@@ -59,7 +59,7 @@ export default function SquirrelLoginForm() {
 
         {/* Вращающаяся карта */}
         <motion.div
-          className="relative w-48 h-64 rounded-xl shadow-md border-4 border-purple-600 bg-black/70 flex items-center justify-center p-2"
+          className="relative w-48 h-60 rounded-xl shadow-md border-4 border-purple-600 bg-black/70 flex items-center justify-center p-2"
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
         >
@@ -90,7 +90,7 @@ export default function SquirrelLoginForm() {
 
           {/* Белка */}
           <motion.div
-            className="relative w-28 h-28 rounded-full border-2 border-orange-500
+            className="relative w-24 h-24 rounded-full border-2 border-orange-500
                       flex justify-center items-center
                       shadow-[0_0_15px_rgba(255,165,0,0.5)]
                       bg-gradient-to-b from-orange-300 to-orange-500"
@@ -152,4 +152,6 @@ export default function SquirrelLoginForm() {
     </div>
     </div>
   );
+
+
 }
