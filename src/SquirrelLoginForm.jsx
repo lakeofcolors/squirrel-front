@@ -35,6 +35,7 @@ export default function SquirrelLoginForm() {
 
     const doAuth = async () => {
       try {
+        alert(tg.initData);
         const res = await axios.post(getUrl("/auth/login"), {
           initData: tg.initData || null,
         });
@@ -51,7 +52,7 @@ export default function SquirrelLoginForm() {
       }
     };
 
-    // doAuth();
+    doAuth();
   }, [navigate, setToken]);
   return (
     <div className="flex flex-col items-center justify-end min-h-screen login-bg p-10">
