@@ -6,26 +6,39 @@ function RoomCard({ roomName, rating, playersConnected, maxPlayers, prizeMoney, 
   const connectedPercentage = (playersConnected / maxPlayers) * 100;
 
   return (
-    <div className="flex flex-col justify-between p-4 border border-gray-300 rounded-xl bg-white shadow w-full max-w-md h-auto min-h-[240px]">
-      <div className="space-y-1">
-        <h3 className="font-semibold text-lg text-center text-gray-800">{roomName}</h3>
-        <div className="text-sm text-gray-600">Средний рейтинг: <span className="font-medium text-gray-800">{rating}</span></div>
-        <div className="text-sm text-gray-600">Деньги на игру: <span className="font-medium text-gray-800">${prizeMoney}</span></div>
-        <div className={`text-sm font-medium ${isRanked ? "text-green-600" : "text-red-500"}`}>
-          {isRanked ? "Рейтинговая игра" : "Не рейтинговая игра"}
+    <div className="flex flex-col justify-between p-4 rounded-xl bg-[#1a1a2e] border border-purple-500 shadow-lg shadow-purple-800/50 w-full max-w-md h-auto min-h-[240px] transition hover:scale-[1.02] hover:shadow-purple-600/70">
+      {/* Заголовок и инфо */}
+      <div className="space-y-2 text-center">
+        <h3 className="font-bold text-xl text-yellow-300 drop-shadow-md">{roomName}</h3>
+        <div className="text-sm text-gray-300">
+          Средний рейтинг: <span className="font-semibold text-white">{rating}</span>
+        </div>
+        <div className="text-sm text-gray-300">
+          Деньги на игру: <span className="font-semibold text-green-400">${prizeMoney}</span>
+        </div>
+        <div className={`text-sm font-semibold ${isRanked ? "text-green-400" : "text-pink-400"}`}>
+          {isRanked ? "Рейтинговая игра" : "Casual игра"}
         </div>
       </div>
 
-      <div className="mt-3">
-        <div className="text-sm mb-1 text-center text-gray-700">{playersConnected}/{maxPlayers} игроков</div>
-        <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-          <div className="bg-green-500 h-full" style={{ width: `${connectedPercentage}%` }} />
+      {/* Игроки + прогресс */}
+      <div className="mt-4">
+        <div className="text-sm mb-2 text-gray-300 text-center">
+          {playersConnected}/{maxPlayers} игроков
         </div>
+        <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+          <div
+            className="bg-gradient-to-r from-green-400 to-green-600 h-full transition-all"
+            style={{ width: `${connectedPercentage}%` }}
+          />
+        </div>
+
+        {/* Кнопка */}
         <button
           onClick={onJoin}
-          className="mt-3 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold"
+          className="mt-4 w-full bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition shadow-md shadow-purple-800/50"
         >
-          Присоединиться
+          🚀 Присоединиться
         </button>
       </div>
     </div>
@@ -75,36 +88,44 @@ export default function GameSearch() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 p-4 flex flex-col gap-6">
+    <div className="min-h-screen login-bg text-gray-900 p-2 flex flex-col gap-6">
       {/* Заголовок */}
-      {/* <div className="w-full text-center"> */}
-      {/*   <div className="inline-block px-6 py-3 border-4 border-yellow-500 rounded-lg bg-yellow-100 shadow font-bold text-2xl sm:text-3xl uppercase"> */}
-      {/*     Белка */}
-      {/*   </div> */}
-      {/* </div> */}
+      <div className="mb-6 text-center w-full">
+        <div className="relative inline-block px-8 py-3 border-4 border-purple-500 rounded-lg bg-[#1a1a2e] shadow-lg shadow-purple-600/50 max-w-xs">
+          <span className="text-4xl font-extrabold text-pink-400 tracking-widest uppercase drop-shadow-[0_0_8px_#f472b6]">
+            Белка
+          </span>
 
-      <div className="mb-4 text-center w-full">
-        <div className="relative inline-block px-4 py-2 border-4 border-yellow-600 rounded-lg bg-yellow-100 shadow-md w-full max-w-xs">
-          <span className="text-3xl font-bold text-black tracking-wide uppercase">Белка</span>
-          <div className="absolute top-0 left-0 w-2 h-2 bg-black rounded-full -mt-1 -ml-1"></div>
-          <div className="absolute top-0 right-0 w-2 h-2 bg-black rounded-full -mt-1 -mr-1"></div>
-          <div className="absolute bottom-0 left-0 w-2 h-2 bg-black rounded-full -mb-1 -ml-1"></div>
-          <div className="absolute bottom-0 right-0 w-2 h-2 bg-black rounded-full -mb-1 -mr-1"></div>
+          {/* Украшения по углам */}
+          <div className="absolute top-0 left-0 w-3 h-3 bg-pink-400 rounded-full -mt-1 -ml-1 shadow-[0_0_6px_#f472b6]" />
+          <div className="absolute top-0 right-0 w-3 h-3 bg-pink-400 rounded-full -mt-1 -mr-1 shadow-[0_0_6px_#f472b6]" />
+          <div className="absolute bottom-0 left-0 w-3 h-3 bg-pink-400 rounded-full -mb-1 -ml-1 shadow-[0_0_6px_#f472b6]" />
+          <div className="absolute bottom-0 right-0 w-3 h-3 bg-pink-400 rounded-full -mb-1 -mr-1 shadow-[0_0_6px_#f472b6]" />
         </div>
-      </div>
-
-
-      {/* Кнопки */}
+      </div>      {/* Кнопки */}
       <div className="flex flex-wrap justify-center gap-3">
-        <button onClick={startSearchGame} className="px-4 py-2 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600">
+        {/* Главная кнопка — поиск игры (жёлтый акцент) */}
+        <button
+          onClick={startSearchGame}
+          className="px-4 py-2 bg-yellow-400 text-black rounded-lg font-medium hover:bg-yellow-500 shadow-md shadow-yellow-600/50"
+        >
           Поиск игры
         </button>
-        <button className="px-4 py-2 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600">Друзья</button>
-        <button className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600">Пополнить орехи</button>
-        <button className="px-4 py-2 bg-indigo-500 text-white rounded-lg font-medium hover:bg-indigo-600">Пополнить тонны</button>
-        <button className="px-4 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600">Рейтинг</button>
-      </div>
 
+        {/* Второстепенные кнопки — фиолетовая палитра */}
+        <button className="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 shadow-md shadow-purple-800/50">
+          Друзья
+        </button>
+
+        <button className="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 shadow-md shadow-purple-800/50">
+          Колоды
+        </button>
+
+        {/* Акцент — рейтинг (красный, но более мягкий) */}
+        <button className="px-4 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 shadow-md shadow-red-700/50">
+          Рейтинг
+        </button>
+      </div>
       {/* Список комнат */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {rooms.map((room, i) => (
