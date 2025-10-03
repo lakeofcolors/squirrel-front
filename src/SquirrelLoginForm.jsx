@@ -14,6 +14,7 @@ export default function SquirrelLoginForm() {
   const setToken = useGameStore((s) => s.setToken);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const handleMouseMove = (event) => {
       setMousePosition({ x: event.clientX, y: event.clientY });
@@ -22,38 +23,41 @@ export default function SquirrelLoginForm() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
-    if (tg) {
-      tg.ready();
-      tg.expand();
-    } else {
+    if (!tg) {
       console.log("Not inside Telegram WebApp");
       alert("Not inside Telegram WebApp. For dev use browser.");
+      return;
     }
 
-    console.log("Inside Telegram WebApp");
+    tg.ready();
+    tg.expand();
 
-    try {
-      const res = await axios.post(getUrl("/auth/login"), {
-        // username,
-        // password,
-        initData: tg?.initData || null,   // <-- передаём на бэк
-      });
+    alert("Inside Telegram WebApp. For dev use browser.");
 
-      if (res.data.access_token) {
-        localStorage.setItem("access_token", res.data.access_token);
-        setToken(res.data.access_token);
-        connectWS(navigate);
-        navigate("/find");
+    const doAuth = async () => {
+      try {
+        const res = await axios.post(getUrl("/auth/login"), {
+          initData: tg.initData || null, // <-- Telegram присылает строку initData
+        });
+
+        if (res.data.access_token) {
+          localStorage.setItem("access_token", res.data.access_token);
+          setToken(res.data.access_token);
+          connectWS(navigate);
+          navigate("/find");
+        }
+      } catch (err) {
+        alert("Ошибка авторизации");
+        console.error("Auth error:", err);
       }
-    } catch (err) {
-      alert("Ошибка авторизации");
-      console.error("Auth error:", err);
-    }
-  };
+    };
+
+    doAuth();
+  }, [navigate, setToken]);
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen login-bg p-4">
