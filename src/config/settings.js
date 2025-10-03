@@ -8,6 +8,12 @@ export function getUrl(path = "/", ws = false) {
     protocol = window.location.protocol.replace(":", "");
 
   }
-  const host = window.location.host.split(".")[1];
+  let host = window.location.host;
+
+  if (host.split(".").length > 2) {
+    const parts = host.split(".");
+    host = parts.slice(1).join("."); // выкидываем первый (sub)
+  }
+
   return `${protocol}://api.${host}${path}`;
 }
