@@ -37,7 +37,7 @@ export default function SquirrelLoginForm() {
       try {
         alert(tg.initData);
         const res = await axios.post(getUrl("/auth/login"), {
-          initData: tg.initData || null,
+          init_data: tg.initData || null,
         });
 
         if (res.data.access_token) {
