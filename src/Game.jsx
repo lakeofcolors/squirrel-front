@@ -98,82 +98,71 @@ export default function GameTable() {
 
 
   return (
-    <div className="min-h-screen bg-green-700 flex flex-col items-center justify-center space-y-4 py-4">
-    {/* Заголовок */}
-    <div className="mb-2 text-center w-full">
-      <div className="relative inline-block px-4 py-2 border-4 border-yellow-600 rounded-lg bg-yellow-100 shadow-md w-full max-w-xs">
-        <span className="text-3xl font-bold text-black tracking-wide uppercase">Белка</span>
-        <div className="absolute top-0 left-0 w-2 h-2 bg-black rounded-full -mt-1 -ml-1"></div>
-        <div className="absolute top-0 right-0 w-2 h-2 bg-black rounded-full -mt-1 -mr-1"></div>
-        <div className="absolute bottom-0 left-0 w-2 h-2 bg-black rounded-full -mb-1 -ml-1"></div>
-        <div className="absolute bottom-0 right-0 w-2 h-2 bg-black rounded-full -mb-1 -mr-1"></div>
+    <div className="min-h-screen login-bg flex flex-col items-center justify-center space-y-4 py-4 bg-gradient-to-b from-[#0f0f1e] to-[#1a1a2e]">
+      {/* Заголовок */}
+      <div className="mb-2 text-center w-full">
+        <div className="relative inline-block px-6 py-3 border-4 border-pink-500 rounded-lg bg-[#1a1a2e] shadow-[0_0_20px_#f472b6]">
+          <span className="text-3xl font-extrabold text-pink-400 tracking-widest uppercase drop-shadow-[0_0_8px_#f472b6]">
+            Белка
+          </span>
+        </div>
       </div>
-    </div>
 
+      {/* Игровое поле */}
+      <div className="relative w-full max-w-[500px] aspect-[3/4] sm:max-w-[600px] rounded-xl border-4 border-purple-700 bg-[#15152b] shadow-[0_0_25px_#7c3aed] p-3 sm:p-5 flex flex-col justify-between">
 
-    {/* <div className="text-center"> */}
-    {/*   <div className="inline-block px-4 py-2 border-4 border-yellow-600 rounded-lg bg-yellow-100 shadow-md"> */}
-    {/*     <span className="text-3xl font-bold text-gray-900 tracking-wide uppercase">Белка</span> */}
-    {/*   </div> */}
-    {/* </div> */}
-
-
-
-
-      <div className="relative w-full max-w-[500px] aspect-[3/4] sm:max-w-[600px] bg-green-800 rounded-xl border-4 border-green-900 p-2 sm:p-4 flex flex-col justify-between">
-
+        {/* Трамп или глаз */}
         {renderTrump()}
-        {/* {renderEye()} */}
 
-        {/* Top player */}
+        {/* Верхний игрок */}
         <div className="flex justify-center items-center h-12">
           <PlayerLabel name="Игрок 1" isCurrent={position === 0 && yourTurn} />
         </div>
 
-        {/* Middle table zone: cards and side players */}
-        <div className="flex-1 flex justify-between items-center px-2 sm:px-4">
-
-          <div className="w-12 text-center">
+        {/* Средняя зона (левый и правый игроки + карты) */}
+        <div className="flex-1 flex justify-between items-center px-3 sm:px-6">
+          <div className="w-14 text-center">
             <PlayerLabel name="Игрок 2" isCurrent={position === 1 && yourTurn} />
           </div>
 
-        <div className="relative w-40 h-40 sm:w-52 sm:h-52">
-          {cardsOnTable[0] && (
-            <div className="absolute top-0 left-1/2 -translate-x-1/2">
-              <Card card={cardsOnTable[0]} />
-            </div>
-          )}
-          {cardsOnTable[1] && (
-            <div className="absolute top-1/2 left-0 -translate-y-1/2">
-              <Card card={cardsOnTable[1]} />
-            </div>
-          )}
-          {cardsOnTable[2] && (
-            <div className="absolute top-1/2 right-0 -translate-y-1/2">
-              <Card card={cardsOnTable[2]} />
-            </div>
-          )}
-          {cardsOnTable[3] && (
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-              <Card card={cardsOnTable[3]} />
-            </div>
-          )}
-        </div>
-          <div className="w-12 text-center">
+          <div className="relative w-40 h-40 sm:w-52 sm:h-52">
+            {cardsOnTable[0] && (
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 drop-shadow-[0_0_10px_#facc15]">
+                <Card card={cardsOnTable[0]} />
+              </div>
+            )}
+            {cardsOnTable[1] && (
+              <div className="absolute top-1/2 left-0 -translate-y-1/2 drop-shadow-[0_0_10px_#22c55e]">
+                <Card card={cardsOnTable[1]} />
+              </div>
+            )}
+            {cardsOnTable[2] && (
+              <div className="absolute top-1/2 right-0 -translate-y-1/2 drop-shadow-[0_0_10px_#3b82f6]">
+                <Card card={cardsOnTable[2]} />
+              </div>
+            )}
+            {cardsOnTable[3] && (
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 drop-shadow-[0_0_10px_#ec4899]">
+                <Card card={cardsOnTable[3]} />
+              </div>
+            )}
+          </div>
+
+          <div className="w-14 text-center">
             <PlayerLabel name="Игрок 3" isCurrent={position === 2 && yourTurn} />
           </div>
         </div>
 
-        {/* Bottom player (you) */}
-        <div className="flex flex-col items-center space-y-2">
+        {/* Нижний игрок (Вы) */}
+        <div className="flex flex-col items-center space-y-3">
           <PlayerLabel name="Вы" isCurrent={yourTurn} />
-          <div className="flex flex-wrap justify-center gap-2 px-2">
+          <div className="flex flex-wrap justify-center gap-3 px-2">
             {hand.map((card, idx) => (
               <button
                 key={idx}
                 onClick={() => playCard(card)}
                 disabled={!yourTurn}
-                className="hover:-translate-y-1 transition-transform"
+                className="hover:-translate-y-2 transition-transform drop-shadow-[0_0_12px_#a855f7]"
               >
                 <Card card={card} />
               </button>
@@ -181,12 +170,14 @@ export default function GameTable() {
           </div>
         </div>
 
-        {/* Game Over notice */}
+        {/* Game Over */}
         {gameOver && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl">
-            <div className="text-center text-white">
-              <h2 className="text-xl font-bold mb-2">Игра окончена</h2>
-              <p>Счет: A {scores.team_a} — B {scores.team_b}</p>
+          <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-xl">
+            <div className="text-center text-pink-400 drop-shadow-[0_0_10px_#f472b6]">
+              <h2 className="text-3xl font-extrabold mb-2">Игра окончена</h2>
+              <p className="text-xl">
+                Счёт: A {scores.team_a} — B {scores.team_b}
+              </p>
             </div>
           </div>
         )}

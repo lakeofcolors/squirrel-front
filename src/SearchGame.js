@@ -45,17 +45,49 @@ function RoomCard({ roomName, rating, playersConnected, maxPlayers, prizeMoney, 
   );
 }
 
-function LoadingModal({ isOpen }) {
+
+
+
+function LoadingModal({ isOpen, onCancel }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
-        <div className="w-14 h-14 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-        <p className="mt-4 text-lg font-semibold text-gray-800">Поиск игры...</p>
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+      <div className="bg-[#1a1a2e] p-8 rounded-2xl border-4 border-pink-500 shadow-[0_0_25px_#f472b6] flex flex-col items-center space-y-6">
+
+        <div className="relative w-20 h-20 flex items-center justify-center">
+          {/* Крутящийся обод */}
+          <div className="absolute inset-0 border-4 border-pink-400 border-t-transparent rounded-full animate-spin shadow-[0_0_15px_#f472b6]" />
+
+          {/* Аватарка теперь точно по размеру */}
+          <img
+            src="https://api.dicebear.com/7.x/thumbs/svg?seed=belka"
+            alt="avatar"
+            className="w-full h-full rounded-full object-cover border-4 border-[#1a1a2e]"
+          />
+        </div>
+
+        {/* Текст поиска */}
+        <p className="text-xl font-bold text-pink-400 drop-shadow-[0_0_8px_#f472b6]">
+          Поиск игры...
+        </p>
+
+        {/* Количество игроков в очереди */}
+        <p className="text-lg text-yellow-300 drop-shadow-[0_0_6px_#fde047]">
+          В очереди: <span className="font-bold">999</span> белок
+        </p>
+
+        {/* Кнопка отмены */}
+        <button
+          onClick={onCancel}
+          className="px-6 py-2 bg-red-600 text-white font-bold rounded-lg shadow-[0_0_15px_#f87171] hover:bg-red-500 hover:shadow-[0_0_20px_#ef4444] transition animate-pulse"
+        >
+          ✖ Отменить поиск
+        </button>
       </div>
     </div>
   );
+
 }
 
 export default function GameSearch() {
@@ -162,7 +194,7 @@ export default function GameSearch() {
       </div>
 
       {/* Модалка загрузки */}
-      <LoadingModal isOpen={isLoading} />
+      <LoadingModal isOpen={isLoading} onCancel={() => setIsLoading(false)} />
     </div>
   );
 }
