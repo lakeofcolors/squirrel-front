@@ -1,11 +1,9 @@
 import { useGameStore } from "../store";
 import { toast } from 'react-toastify';
+import { getUrl } from '../config/settings'
 
 let socket = null;
 let pingInterval;
-const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-const host = window.location.host;
-const socketUrl = `${protocol}://api.${host}/v1/ws`;
 
 export function connectWS(navigate) {
   if (getSocket()) {
@@ -13,7 +11,7 @@ export function connectWS(navigate) {
   }
   let token = getToken();
   console.log(token);
-  socket = new WebSocket(socketUrl);
+  socket = new WebSocket(getUrl("/v1/ws", true));
 
   socket.onopen = () => {
     const store = useGameStore.getState();
@@ -104,7 +102,7 @@ export function getSocket() {
 }
 
 function reconnect() {
-  const socket = new WebSocket("ws://localhost:9221/api/ws");
+  const socket = new WebSocket(getUrl("/v1/ws", true));
   socket.onopen = () => {
     socket.send(JSON.stringify({ op: "auth", token: getToken() }));
   };
